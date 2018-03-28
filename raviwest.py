@@ -3,13 +3,16 @@
 
 ## Modules
 from tkinter import Tk, Label, Button, Message, Canvas, Frame, Text, Scrollbar, StringVar, Entry, ttk, Place
-import paramiko, socket, subprocess
+import paramiko, socket, subprocess, json
 
 ## VAR
 HOST_IP = ''
 HOST_PORT = ''
 HOST_LOGIN = ''
 HOST_PASSWORD = ''
+
+## Parameters for StringVar
+parametersIP = StringVar()
 
 
 ## Constructor
@@ -47,6 +50,13 @@ def rebootServeur():
 def boutonConf():
     pass
 
+def importConf():
+    conf = json.load(open('config.json'))
+    HOST_IP = conf['ip']
+    HOST_PORT = conf['port']
+    HOST_LOGIN = conf['login']
+    HOST_PASSWORD = conf['password']
+
 ## Tkinter Général 
 maFenetre.iconbitmap("logo.ico")
 maFenetre.title('Raviwest 0.1')
@@ -72,9 +82,6 @@ entryLOGIN = Entry(maFenetre).grid(column='0', row='7', columnspan='2', rowspan=
 textPASSWORDLabel = Label(maFenetre, text='PASSWORD :').grid(column='0', row='8', padx='0', pady='1', sticky='w')
 entryPASSWORD = Entry(maFenetre).grid(column='0', row='8', columnspan='2', rowspan='1', padx='0', pady='1', sticky='e')
 boutonConf = Button(maFenetre, text ='Valider', command=boutonConf).grid(column='0', row='9', padx='10', pady='5', sticky='nesw')
-
-
-# sticky='n'
 
 ## Tkinter MainLoop
 maFenetre.mainloop()
