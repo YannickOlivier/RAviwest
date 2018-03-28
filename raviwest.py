@@ -36,11 +36,25 @@ def commandSSH(command):
     client.exec_command(command)
 
 def rebootServices():
+    pass
     connectSSH()
     commandSSH("pwd; pwd")
     closeSSH()
 
-## Tkinter 
-maFenetre.icobitmap("logo.ico")
+## Tkinter Général 
+maFenetre.iconbitmap("logo.ico")
 maFenetre.title('Raviwest 0.1')
 maFenetre.geometry('300x300')
+maFenetre.resizable(width='False', height='False')
+maFenetre.rowconfigure(0, weight='1')
+maFenetre.columnconfigure(0, weight='1')
+
+
+## Tkinter Constructeur
+text1Label = Label(maFenetre, text='Choisir le type de reboot désiré :', pady='5').grid(column='0', row='0')
+boutonServices = Button(maFenetre, text ='Redémarrer les services', command=rebootServices).grid(column='0', row='1')
+
+# sticky='n'
+
+## Tkinter MainLoop
+maFenetre.mainloop()
