@@ -1,4 +1,4 @@
-## Simple application to reboot Aviwest Servers
+## Simple application to reboot Aviwest Streamhub services and server
 ## Sorry, it's my first app in Python
 
 ## Modules
@@ -28,6 +28,7 @@ def ping():
         pass
 
 def connectSSH():
+    print("ConnectSSH")
     client.load_system_host_keys()
     client.set_missing_host_key_policy(paramiko.AutoAddPolicy)
     client.connect(HOST_IP, HOST_PORT, HOST_LOGIN, HOST_PASSWORD)
@@ -36,6 +37,7 @@ def closeSSH():
     client.close()
 
 def commandSSH(command):
+    print("commandSSH")
     client.exec_command(command)
 
 def rebootServices():
@@ -56,9 +58,10 @@ def configuration():
     return HOST_IP, HOST_PORT, HOST_LOGIN, HOST_PASSWORD
 
 def sauvegarde(textIP):
+    print("Sauvegarde")    
     print("salu", textIP)
-    data = {"ip": "192.168.1.4", "port": "22", "login": "toto", "password": "totoPS"}
-    json.dump(data, open('config.json', 'wb') )
+    data = {"ip": textIP, 'toto2': 'toto2'}
+    json.dump(data, open('toto.json', 'w') )
 
 ## Tkinter Général 
 maFenetre.iconbitmap("logo.ico")
@@ -97,9 +100,10 @@ def tkinterConstructeur(textIP, textPORT, textLOGIN, textPASSWORD):
     textLOGINLabel = Label(maFenetre, text='LOGIN :').grid(column='0', row='7', padx='0', pady='1', sticky='w')
     entryLOGIN = Entry(maFenetre, textvariable=textLOGIN).grid(column='0', row='7', columnspan='2', rowspan='1', padx='0', pady='1', sticky='e')
     textPASSWORDLabel = Label(maFenetre, text='PASSWORD :').grid(column='0', row='8', padx='0', pady='1', sticky='w')
-    entryPASSWORD = Entry(maFenetre, textvariable=textPASSWORD).grid(column='0', row='8', columnspan='2', rowspan='1', padx='0', pady='1', sticky='e')
+    entryPASSWORD = Entry(maFenetre, textvariable=textPASSWORD, show="*").grid(column='0', row='8', columnspan='2', rowspan='1', padx='0', pady='1', sticky='e')
     boutonConf = Button(maFenetre, text ='Valider', command=sauvegarde(textIP.get())).grid(column='0', row='9', padx='10', pady='5', sticky='nesw')
 
+#textIP.get())
 ## Tkinter MainLoop
 HOST_IP, HOST_PORT, HOST_LOGIN, HOST_PASSWORD = configuration()
 textIP, textPORT, textLOGIN, textPASSWORD = tkinterText(HOST_IP, HOST_PORT, HOST_LOGIN, HOST_PASSWORD)
