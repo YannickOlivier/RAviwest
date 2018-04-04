@@ -28,7 +28,7 @@ HOST_PORT = ''
 HOST_LOGIN = ''
 HOST_PASSWORD = ''
 COMMAND_SERVICES = 'pwd'
-COMMAND_REBOOT = 'pwd'
+COMMAND_REBOOT = 'reboot'
 
 ## Constructor
 client = paramiko.SSHClient()
@@ -42,13 +42,6 @@ def jsonCreation():
         print("Fichier NOK : création")
         data = {'ip': '', 'port': '', 'login': '', 'password': '', 'services': COMMAND_SERVICES, 'reboot': COMMAND_REBOOT}
         json.dump(data, open('config.json', 'w'), indent=4)
-
-def ping():
-    response = subprocess.call(['ping', '-w', '1', '-n', '1', HOST_IP])
-    if response == 0:
-        pass
-    else:
-        pass
 
 def connectSSH(HOST_IP, HOST_PORT, HOST_LOGIN, HOST_PASSWORD):
     try:
@@ -91,6 +84,18 @@ def sauvegarde():
     print("Sauvegarde")    
     data = {'ip': textIP.get(), 'port': textPORT.get(), 'login': textLOGIN.get(), 'password': textPASSWORD.get(), 'services': COMMAND_SERVICES, 'reboot': COMMAND_REBOOT}
     json.dump(data, open('config.json', 'w'), indent=4)
+
+class ping:
+    def __init__(self):
+        print("ini")
+    def tot(self):
+        result = subprocess.Popen(["ping", "-n", "1", "-w", "200", '10.45.65.23'],shell=True).wait()
+        if result ==0:
+            print(textIP.get(), "ça ping")
+        else:
+            print(textIP.get(), "ça ping pas")
+
+        self.after(1000, self.tot)
 
 ## Tkinter Général 
 maFenetre.iconbitmap("logo.ico")
@@ -136,4 +141,6 @@ jsonCreation()
 HOST_IP, HOST_PORT, HOST_LOGIN, HOST_PASSWORD = configuration()
 textIP, textPORT, textLOGIN, textPASSWORD = tkinterText(HOST_IP, HOST_PORT, HOST_LOGIN, HOST_PASSWORD)
 tkinterConstructeur()
+#testip = ping()
+#testip.tot()
 maFenetre.mainloop()
