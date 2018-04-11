@@ -124,7 +124,7 @@ def tkinterText(HOST_IP, HOST_PORT, HOST_LOGIN, HOST_PASSWORD):
     textPASSWORD.set(HOST_PASSWORD)
     return textIP, textPORT, textLOGIN, textPASSWORD
 
-def menu1(textIP):
+def menu1():
     maFenetreConfig = Tk()
     maFenetreConfig.iconbitmap("logo.ico")
     maFenetreConfig.title('Configuration :')
@@ -137,7 +137,7 @@ def menu1(textIP):
     #print("Après StringVar", monIP)
     text5Label = Label(maFenetreConfig, text='Configuration du serveur :').grid(column='0', row='0', padx='5', pady='3', columnspan='2')
     textIPLabel = Label(maFenetreConfig, text='IP :').grid(column='0', row='1', padx='0', pady='1', sticky='w')
-    entryIP = Entry(maFenetreConfig, textvariable=monIP).grid(column='1', row='1', columnspan='1', padx='0', pady='1', sticky='e')
+    entryIP = Entry(maFenetreConfig, textvariable=textIP).grid(column='1', row='1', columnspan='1', padx='0', pady='1', sticky='e')
     textPORTLabel = Label(maFenetreConfig, text='PORT :').grid(column='0', row='2', padx='0', pady='1', sticky='w')
     entryPORT = Entry(maFenetreConfig, textvariable=textPORT).grid(column='1', row='2', columnspan='1', rowspan='1', padx='0', pady='2', sticky='e')
     textLOGINLabel = Label(maFenetreConfig, text='LOGIN :').grid(column='0', row='3', padx='0', pady='1', sticky='w')
@@ -153,7 +153,7 @@ def menu2():
 ## Tkinter Constructeur :
 def tkinterConstructeur():
     menubar = Menu(maFenetre)
-    menubar.add_cascade(label="Configuration", command=menu1(textIP))
+    menubar.add_cascade(label="Configuration", command=menu1)
     menubar.add_cascade(label="?", command=menu2)
     maFenetre.config(menu=menubar)
 
@@ -162,10 +162,6 @@ def tkinterConstructeur():
     boutonServeur = Button(maFenetre, text ='Redémarrer le serveur', command=rebootServeur).grid(column='0', row='2', padx='10', pady='5', sticky='nesw')
     text2Label = Label(maFenetre, text='--------------------------', anchor='center').grid(column='0', row='3', padx='0', pady='0')
     text3Label = Label(maFenetre, text='Etat du serveur (ping) :', anchor='center').grid(column='0', row='4', padx='5', pady='0', sticky='w')
-
-
-    entryPORT = Entry(maFenetre, textvariable=textPORT).grid(column='1', row='2', columnspan='1', rowspan='1', padx='0', pady='2', sticky='e')
-    textLOGINLabel = Label(maFenetre, text='LOGIN :').grid(column='0', row='3', padx='0', pady='1', sticky='w')
     maFenetre.mainloop()
 
 ## Tkinter MainLoop
@@ -173,5 +169,5 @@ jsonCreation()
 HOST_IP, HOST_PORT, HOST_LOGIN, HOST_PASSWORD = configuration()
 textIP, textPORT, textLOGIN, textPASSWORD = tkinterText(HOST_IP, HOST_PORT, HOST_LOGIN, HOST_PASSWORD)
 tkinterConstructeur()
-#ping()
+ping()
 
