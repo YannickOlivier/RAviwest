@@ -19,7 +19,7 @@
 #  Sorry, it's my first app in Python
 
 ## Modules
-from tkinter import Tk, Label, Button, Message, Canvas, Frame, Text, Scrollbar, StringVar, Entry, ttk, Place, Menu, messagebox
+from tkinter import Tk, Label, Button, Message, Canvas, Frame, Text, Scrollbar, StringVar, Entry, ttk, Place, Menu, messagebox, Toplevel
 import paramiko, socket, subprocess, json, os
 
 ## VAR
@@ -108,8 +108,8 @@ def canvasPing(color):
 
 ## Tkinter Général 
 maFenetre.iconbitmap("logo.ico")
-maFenetre.title('Raviwest 0.3')
-maFenetre.geometry('200x300+600+300') #180
+maFenetre.title('Raviwest 0.5')
+maFenetre.geometry('200x175+600+300') #180
 maFenetre.resizable(width='False', height='False')
 
 ## Tkinter Text : 
@@ -125,13 +125,11 @@ def tkinterText(HOST_IP, HOST_PORT, HOST_LOGIN, HOST_PASSWORD):
     return textIP, textPORT, textLOGIN, textPASSWORD
 
 def menu1():
-    maFenetreConfig = Tk()
+    maFenetreConfig = Toplevel()
     maFenetreConfig.iconbitmap("logo.ico")
     maFenetreConfig.title('Configuration :')
     maFenetreConfig.geometry('200x158+600+350')
     maFenetreConfig.resizable(width='False', height='False')
-
-    #print("menu1", textIP.get())
     #monIP = StringVar()
     #monIP = HOST_IP
     #print("Après StringVar", monIP)
@@ -145,7 +143,7 @@ def menu1():
     textPASSWORDLabel = Label(maFenetreConfig, text='PASSWORD :').grid(column='0', row='4', padx='0', pady='1', sticky='w')
     entryPASSWORD = Entry(maFenetreConfig, textvariable=textPASSWORD, show="*").grid(column='1', row='4', rowspan='1', padx='0', pady='1', sticky='e')
     boutonConf = Button(maFenetreConfig, text ='           Valider         ', command=sauvegarde).grid(column='0', row='5', padx='5', pady='10', columnspan='2')
-    maFenetreConfig.mainloop()
+   # maFenetreConfig.mainloop()
 
 def menu2():
     messagebox.showinfo("Informations :", "Programme développé par Yannick Olivier\nFrance 3 Centre-Val de Loire\nAvril 2018\nhttp://github.com/YannickOlivier")
@@ -156,7 +154,6 @@ def tkinterConstructeur():
     menubar.add_cascade(label="Configuration", command=menu1)
     menubar.add_cascade(label="?", command=menu2)
     maFenetre.config(menu=menubar)
-
     text1Label = Label(maFenetre, text='Choisir le type de reboot désiré :', anchor='center').grid(column='0', row='0', padx='10', pady='5')
     boutonServices = Button(maFenetre, text ='Redémarrer les services', command=rebootServices).grid(column='0', row='1', padx='10', pady='5', sticky='nesw')
     boutonServeur = Button(maFenetre, text ='Redémarrer le serveur', command=rebootServeur).grid(column='0', row='2', padx='10', pady='5', sticky='nesw')
@@ -168,6 +165,7 @@ def tkinterConstructeur():
 jsonCreation()
 HOST_IP, HOST_PORT, HOST_LOGIN, HOST_PASSWORD = configuration()
 textIP, textPORT, textLOGIN, textPASSWORD = tkinterText(HOST_IP, HOST_PORT, HOST_LOGIN, HOST_PASSWORD)
-tkinterConstructeur()
 ping()
+tkinterConstructeur()
+
 

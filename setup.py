@@ -14,7 +14,7 @@ packages = ['paramiko', 'cffi', 'cryptography']
 setup(
     name = "RAviwest",
     options = {"build_exe": {"includes": includes, "include_files": include_files, "packages": packages}},
-    version = "0.3",
+    version = "0.5",
     description = 'A simple app to reboot Aviwest StreamHub',
     executables = [Executable(script="raviwest.py", base='Win32GUI', icon="logo.ico")]
 )
