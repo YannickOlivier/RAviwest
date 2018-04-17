@@ -27,8 +27,8 @@ HOST_IP = ''
 HOST_PORT = ''
 HOST_LOGIN = ''
 HOST_PASSWORD = ''
-COMMAND_SERVICES = 'pwd'
-COMMAND_REBOOT = 'reboot'
+COMMAND_SERVICES = 'S; y'
+COMMAND_REBOOT = 'B; y'
 
 ## Constructor
 client = paramiko.SSHClient()
@@ -68,7 +68,7 @@ def commandSSH(command):
 def rebootServices():
     pass
     connectSSH(textIP.get(), textPORT.get(), textLOGIN.get(), textPASSWORD.get())
-    commandSSH("pwd; pwd")
+    commandSSH(COMMAND_SERVICES)
     closeSSH()
 
 def rebootServeur():
